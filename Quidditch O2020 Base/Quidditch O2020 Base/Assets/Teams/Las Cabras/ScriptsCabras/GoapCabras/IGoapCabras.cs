@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface IGoapCabras
 {
-    // La información del estado del juego o mundo
     Dictionary<string, object> GetWorldState();
 
     // Proporcionar al planeador una meta para construir la

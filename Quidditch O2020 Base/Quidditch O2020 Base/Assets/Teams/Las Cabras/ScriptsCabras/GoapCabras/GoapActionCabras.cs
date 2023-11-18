@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class GoapActionCabras : MonoBehaviour
 {
-    // Precondiciones
     private Dictionary<string, object> Precondiciones;
 
     // Efectos
@@ -14,6 +13,7 @@ public abstract class GoapActionCabras : MonoBehaviour
     public float cost;
 
     // Una acción por lo general se ejecuta sobre un objeto
+    public GameObject Target;
 
     public bool inRange;
 
@@ -26,6 +26,7 @@ public abstract class GoapActionCabras : MonoBehaviour
     // Limpiar la acción
     public void Reset()
     {
+        Target = null;
         inRange = false;
         mReset();
     }

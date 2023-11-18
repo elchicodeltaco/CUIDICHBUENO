@@ -5,7 +5,6 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BuscarPelCazCabras : GoapActionCabras
 {
-    private CazadorCabras Cazador;
 
     // Start is called before the first frame update
     public bool terminado = false;
@@ -25,34 +24,22 @@ public class BuscarPelCazCabras : GoapActionCabras
 
 
     }
-    private void Start()
-    {
-        Cazador = GetComponent<CazadorCabras>();
-        Cazador.steering.Target = GameManager.instancia.Quaffle.transform;
-        Cazador.steering.seek = true;
-        Cazador.steering.seekWeight = 1f;
-    }
     public override bool checkPrecondition(GameObject obj)
     {
-        if (tiempoInicio == 0)
-        {
-            tiempoInicio = Time.timeSinceLevelLoad;
-        }
-        if (Time.timeSinceLevelLoad > tiempoInicio + duracionAccion)
-        {
-            if (!GameManager.instancia.isQuaffleControlled())
-            {
-                Debug.Log("Esto entró");
 
+        GameObject objetivo = GameObject.Find("Quaffle");
 
-                return true;
-            }
+        //Primer pase
+        if (objetivo != null)
+        {
+            Target = objetivo;
+            return true;
         }
         else
         {
             return false;
         }
-        return true;
+        //Asignamos lo que encontramos
     }
         
 
@@ -71,13 +58,19 @@ public class BuscarPelCazCabras : GoapActionCabras
 
     public override bool Perform(GameObject obj)
     {
-        Debug.Log("Esto está entrando");
-        Cazador.tengoLaPelota = true;
-        Cazador.steering.Target = null;
-        Cazador.steering.seek = false;
-        return true;
-        
+        if (tiempoInicio == 0)
+        {
+            tiempoInicio = Time.timeSinceLevelLoad;
+        }
 
+        if (Time.timeSinceLevelLoad > tiempoInicio + duracionAccion)
+        {
+            Target.GetComponent<Quaffle>().Control(transform);
+            GetComponent<JugadorCabras>().tengoLaPelota = true;
+
+            terminado = true;
+        }
+        return true;
     }
 
     public override bool isDone()

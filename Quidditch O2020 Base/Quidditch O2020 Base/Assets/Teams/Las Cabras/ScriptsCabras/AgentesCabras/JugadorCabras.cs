@@ -5,12 +5,15 @@ using UnityEngine;
 public abstract class JugadorCabras : Player, IGoapCabras
 {
     // Start is called before the first frame update
+    public bool tengoLaPelota = false;
+
     public abstract Dictionary<string, object> CreateGoalState();
-    public bool tengoLaPelota;
+
     public Dictionary<string, object> GetWorldState()
     {
 
         Dictionary<string, object> datos = new Dictionary<string, object>();
+
         datos.Add("tienePelota", tengoLaPelota);
 
 

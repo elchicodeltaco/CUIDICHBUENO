@@ -11,36 +11,44 @@ public class BuscarElAro : GoapActionCabras
     public bool terminado = false;
     private float tiempoInicio = 0f;
     [SerializeField] private float duracionAccion = 0f;
-    private SteeringCombined steering;
 
 
-    public BuscarElAro(CazadorCabras Cazador)
+    public BuscarElAro()
     {
-
-        this.Cazador = Cazador;
-
         //AgregamosPrecondiciones
         AddPrecondition("tienePelota", true);
+        //AddPrecondition("estaEnRango", false);
 
         //agregamos efectos
 
-        AddEffect("estaEnRango", true);
+        //AddEffect("estaEnRango", true);
+        AddEffect("tienePelota", false);
+
+
+
     }
 
     public override bool checkPrecondition(GameObject obj)
     {
-        if (GameManager.instancia.ControlQuaffle(gameObject))
-        {
-            steering.seek = false;
-            return true;
-        }
 
-        else
-                {
-            return false;
+        /*if(Cazador.steering.Target!= null)
+        {
+            if (Cazador.tengoLaPelota == true && Vector3.Distance(Cazador.transform.position, Cazador.steering.Target.position) <
+            Cazador.distanceToShoot)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
         }
+        return false;*/
+        return true;
+
     }
-        
+
 
     public override bool requiresInRange()
     {
@@ -57,18 +65,24 @@ public class BuscarElAro : GoapActionCabras
 
     public override bool Perform(GameObject obj)
     {
+        /*GameManager.instancia.Quaffle.GetComponent<Quaffle>().Throw(
+        Cazador.steering.Target.position - Cazador.transform.position,
+        Cazador.ThrowStrenght);
+        GameManager.instancia.FreeQuaffle();
 
-         terminado = true;
-         return true;
+        Cazador.tengoLaPelota = false;
+        Cazador.steering.seek = false;
+        Cazador.steering.seekWeight = 0f;
+        terminado = true;
+        return true;*/
+        return true;
     }
 
     public override bool isDone()
     {
 
         Debug.Log("Ya lo terminé");
-        steering.Target = null;
-        steering.seek = false;
-        steering.seekWeight = 0f;
+
         return terminado;
     }
 }

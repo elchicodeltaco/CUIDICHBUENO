@@ -13,7 +13,7 @@ public class TeamCabras : Team
         return MyTeamNumber;
     }
 
-    private List<Transform> rivalGoals;
+    public List<Transform> rivalGoals;
     private List<Transform> ownGoals;
 
     public List<Transform> MyStartingPositions;
