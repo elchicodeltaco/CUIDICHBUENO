@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoapAgent : MonoBehaviour
+public class  GoapAgentCabras : MonoBehaviour
 {
     private FSMCabras MaquinaDeEstados;
 
     private FSMCabras.FSMStateCabras IdleState; // lo ocuparemos para pensar
     private FSMCabras.FSMStateCabras ActState;
     private FSMCabras.FSMStateCabras MoveState;
+    private SteeringCombined steering;
 
     private List<GoapActionCabras> AccionesDisponibles;
     private Queue<GoapActionCabras> AccionesActuales;
@@ -114,32 +115,36 @@ public class GoapAgent : MonoBehaviour
 
     private void CrearEstadoMoverse()
     {
+        Debug.Log("Esto en realidad está pasando");
         MoveState = (fsm, gameObj) =>
         {
+            Debug.Log("Esto en realidad está ocurriendo");
+
             GoapActionCabras accion = AccionesActuales.Peek();
             // Mover al agente hacia su objetivo si tiene
-            if (accion.requiresInRange() && accion.Target == null)
+            if (accion.requiresInRange() && steering.Target == null)
             {
                 Debug.Log("Acción requiere Target, pero no tiene.");
                 fsm.popState(); // sale
                 fsm.pushState(IdleState);
+
                 return;
             }
             // que se mueva
+
             if (datosPlaneador.moveAgent(accion))
             {
                 // sale de idle o de actuar
                 fsm.popState();
             }
             // Movimiento, pueden reemplazarlo por Steering despues
-            gameObj.transform.position = Vector3.MoveTowards(
+            /*gameObj.transform.position = Vector3.MoveTowards(
                 gameObj.transform.position,
                 accion.Target.transform.position,
-                Time.deltaTime * 5f);
+                Time.deltaTime * 5f);*/
             // Verificar si llega al objetivo
-            if (Vector3.Distance(
-                gameObj.transform.position,
-                accion.Target.transform.position) < 1f)
+
+            if (Vector3.Distance(transform.position, steering.Target.transform.position) < 10f)
             {
                 // llega al objetivo
                 accion.SetInRange(true);
@@ -150,6 +155,8 @@ public class GoapAgent : MonoBehaviour
 
     private void Start()
     {
+        steering = GetComponent<SteeringCombined>();
+
         Planeador = new GoapPlannerCabras();
         MaquinaDeEstados = new FSMCabras();
         AccionesActuales = new Queue<GoapActionCabras>();

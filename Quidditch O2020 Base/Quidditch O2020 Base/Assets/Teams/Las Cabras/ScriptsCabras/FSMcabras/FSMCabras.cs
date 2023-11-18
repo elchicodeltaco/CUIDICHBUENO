@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FSMCabras
+public class FSMCabras 
 {
     private Stack<FSMStateCabras> pilaEstados = new Stack<FSMStateCabras>();
 
