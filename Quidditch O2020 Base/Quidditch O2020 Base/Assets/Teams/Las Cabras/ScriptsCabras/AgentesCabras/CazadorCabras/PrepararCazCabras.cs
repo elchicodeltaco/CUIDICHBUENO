@@ -29,7 +29,6 @@ public class PrepararCazCabras : GoapActionCabras
     public override bool checkPrecondition(GameObject obj)
     {
         Cazador = GetComponent<CazadorCabras>();
-        Cazador.myStartingPosition = GameManager.instancia.Team1StartPositions[0];
         Debug.Log("Valor starting position " + Cazador.myStartingPosition);
 
         if (Cazador.myStartingPosition != null)
@@ -63,13 +62,15 @@ public class PrepararCazCabras : GoapActionCabras
     {
 
        // Si el juego no ha comenzado, esperar 5 segundos y volver a verificar
-       if (!GameManager.instancia.isGameStarted())
+        if (!GameManager.instancia.isGameStarted() && GameManager.instancia.IsRecovering() == 0)
        {
             StartCoroutine(EsperarCincoSegundos());
             return false;
        }
         else
         {
+            Cazador.steering.Target = GameObject.Find("Quaffle").transform;
+            Target = GameObject.Find("Quaffle");
             StopAllCoroutines();
             return true;
         }

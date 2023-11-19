@@ -349,6 +349,7 @@ public class GameManager : MonoBehaviour
 	void Update ()
     {
         // El juego empezó
+
 		if(isGameStarted() && !gameover)
         {
             RecoverAfterScore();

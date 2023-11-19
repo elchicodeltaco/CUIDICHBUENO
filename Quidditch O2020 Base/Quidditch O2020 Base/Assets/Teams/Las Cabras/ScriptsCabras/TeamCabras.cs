@@ -65,7 +65,7 @@ public class TeamCabras : Team
 
         GameManager.instancia.SetTeamColor(MyTeamNumber, MyTeamColor);
 
-        FillLateData();
+        Invoke("FillLateData", 1f);
 
     }
 
@@ -92,8 +92,8 @@ public class TeamCabras : Team
         for (int j = 0; j < 6; j++)
         {
 
-            LasCabras[j].GetComponent<Player>().myNumberInTeam = j;
-            LasCabras[j].GetComponent<Player>().myStartingPosition = myStartingPositions[j];
+            Teammates[j].GetComponent<Player>().myNumberInTeam = j;
+            Teammates[j].GetComponent<Player>().myStartingPosition = myStartingPositions[j];
         }
         LasCabras[6].GetComponent<Player>().myNumberInTeam = 6;
         LasCabras[6].GetComponent<Player>().myStartingPosition = mySeekerStartingPosition;
