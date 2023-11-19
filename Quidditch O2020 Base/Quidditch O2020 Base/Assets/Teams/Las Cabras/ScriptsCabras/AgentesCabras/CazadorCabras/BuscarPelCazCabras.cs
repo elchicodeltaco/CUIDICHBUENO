@@ -9,24 +9,21 @@ public class BuscarPelCazCabras : GoapActionCabras
     // Start is called before the first frame update
     public bool terminado = false;
     private float tiempoInicio = 0f;
-    [SerializeField] private float duracionAccion = 0f;
+    [SerializeField] private float duracionAccion = 1f;
 
 
     public BuscarPelCazCabras()
     {
- 
-
         //AgregamosPrecondiciones
         AddPrecondition("tienePelota", false);
 
         //agregamos efectos
+        AddEffect("AnotarUnGol", true);
         AddEffect("tienePelota", true);
-
-
     }
     public override bool checkPrecondition(GameObject obj)
     {
-
+        Debug.Log("Se checó la precondición");
         GameObject objetivo = GameObject.Find("Quaffle");
 
         //Primer pase
@@ -51,7 +48,6 @@ public class BuscarPelCazCabras : GoapActionCabras
     //para que cada accion resetee sus variables
     public override void mReset()
     {
-
         terminado = false;
         tiempoInicio = 0f;
     }
@@ -62,12 +58,13 @@ public class BuscarPelCazCabras : GoapActionCabras
         {
             tiempoInicio = Time.timeSinceLevelLoad;
         }
-
         if (Time.timeSinceLevelLoad > tiempoInicio + duracionAccion)
         {
-            Target.GetComponent<Quaffle>().Control(transform);
-            GetComponent<JugadorCabras>().tengoLaPelota = true;
 
+            Target.GetComponent<Quaffle>().Control(transform);
+            //GetComponent<JugadorCabras>().tengoLaPelota = true;
+
+            GetComponent<MisBolas>().LaPelota = 1;
             terminado = true;
         }
         return true;
