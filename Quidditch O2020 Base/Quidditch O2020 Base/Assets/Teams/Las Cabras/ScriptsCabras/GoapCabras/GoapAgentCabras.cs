@@ -133,7 +133,7 @@ public class  GoapAgentCabras : MonoBehaviour
                 fsm.popState();
             }
             // Movimiento, pueden reemplazarlo por Steering despues
-
+ 
             // Verificar si llega al objetivo
             if (Vector3.Distance(
                 gameObj.transform.position,

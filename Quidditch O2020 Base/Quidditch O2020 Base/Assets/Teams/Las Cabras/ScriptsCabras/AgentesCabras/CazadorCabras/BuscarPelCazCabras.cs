@@ -35,6 +35,8 @@ public class BuscarPelCazCabras : GoapActionCabras
         {
             Target = objetivo;
             Cazador.steering.Target = objetivo.transform;
+            Cazador.steering.seek = true;
+            Cazador.steering.seekWeight = 1;
             return true;
         }
         else
@@ -69,6 +71,8 @@ public class BuscarPelCazCabras : GoapActionCabras
         {
             Target.GetComponent<Quaffle>().Control(transform);
             GetComponent<LasBolas>().LaPelota = 1;
+            Target = null;
+            Cazador.steering.Target = null;
 
             terminado = true;
             return true;
