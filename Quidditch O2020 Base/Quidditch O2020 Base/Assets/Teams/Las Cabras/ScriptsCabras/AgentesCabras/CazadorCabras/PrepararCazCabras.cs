@@ -29,7 +29,7 @@ public class PrepararCazCabras : GoapActionCabras
     public override bool checkPrecondition(GameObject obj)
     {
         Cazador = GetComponent<CazadorCabras>();
-
+        
         if (Cazador.myStartingPosition != null)
         {
             Debug.Log("Esta entrando aqui mero");
