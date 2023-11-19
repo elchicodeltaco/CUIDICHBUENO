@@ -12,13 +12,23 @@ public class TeamCabras : Team
     {
         return MyTeamNumber;
     }
+    public List<Transform> LasCabras;
+    public List<Transform> LosRivales;
+
+    private GameObject QuaffleOwner;
+    private Transform ClosestTeammateToQuaffle;
+
 
     public List<Transform> rivalGoals;
     private List<Transform> ownGoals;
 
     public List<Transform> MyStartingPositions;
 
+    public List<Transform> myStartingPositions; // Saber donde inician mis jugadores
+    public Transform mySeekerStartingPosition;
+
     public Color MyTeamColor;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -55,11 +65,39 @@ public class TeamCabras : Team
 
         GameManager.instancia.SetTeamColor(MyTeamNumber, MyTeamColor);
 
+        FillLateData();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void FillLateData()
     {
+        if (GetTeamNumer() == 1)
+        {
+            // Mis rivales
+            LosRivales = GameManager.instancia.team2Players;
+            Rivals = LosRivales;
+            // Mis posiciones iniciales
+            myStartingPositions = GameManager.instancia.Team1StartPositions;
+            mySeekerStartingPosition = GameManager.instancia.Team1SeekerStartPosition;
+
+        }
+        else
+        {
+            LosRivales = GameManager.instancia.team1Players;
+            Rivals = LosRivales;
+            myStartingPositions = GameManager.instancia.Team2StartPositions;
+            mySeekerStartingPosition = GameManager.instancia.Team2SeekerStartPosition;
+        }
+
+        for (int j = 0; j < 6; j++)
+        {
+            Debug.Log("Esto suwecedeeeeeeeee");
+
+            LasCabras[j].GetComponent<Player>().myNumberInTeam = j;
+            LasCabras[j].GetComponent<Player>().myStartingPosition = myStartingPositions[j];
+        }
+        LasCabras[6].GetComponent<Player>().myNumberInTeam = 6;
+        LasCabras[6].GetComponent<Player>().myStartingPosition = mySeekerStartingPosition;
 
     }
 }

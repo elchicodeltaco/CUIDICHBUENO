@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1215626004913155423}
   - component: {fileID: 3836409043659149609}
   - component: {fileID: 119916173475528802}
-  - component: {fileID: 7219983237837657840}
   m_Layer: 0
   m_Name: Cazador
   m_TagString: Untagged
@@ -64,18 +63,6 @@ CapsuleCollider:
   m_Height: 3.6793804
   m_Direction: 2
   m_Center: {x: 0.024025798, y: 0.69, z: -0.06431246}
---- !u!114 &7219983237837657840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4835047095999284326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee1b6b1f3df0d149af47b33b3cc5eb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5079279725860973345
 GameObject:
   m_ObjectHideFlags: 0

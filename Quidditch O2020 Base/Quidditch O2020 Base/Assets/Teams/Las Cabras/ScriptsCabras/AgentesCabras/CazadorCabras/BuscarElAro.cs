@@ -16,7 +16,7 @@ public class BuscarElAro : GoapActionCabras
     public BuscarElAro()
     {
         //AgregamosPrecondiciones
-        AddPrecondition("tienePelota", false);
+        AddPrecondition("tienePelota", true);
         //AddPrecondition("estaEnRango", false);
 
         //agregamos efectos
@@ -30,7 +30,7 @@ public class BuscarElAro : GoapActionCabras
     {
 
 
-
+        Cazador = GetComponent<CazadorCabras>();
         List<Transform> objetivos = GetComponentInParent<TeamCabras>().rivalGoals;
         float distanciaMenor = 0f;
 
@@ -47,18 +47,19 @@ public class BuscarElAro : GoapActionCabras
             {
 
 
-                if (distanciaMinima < Vector3.Distance(t.transform.position, transform.position))
+                if (distanciaMinima > Vector3.Distance(t.transform.position, transform.position))
                 {
                     distanciaMinima = Vector3.Distance(t.transform.position, transform.position);
                     objetivoMasCercano = t;
                 }
             }
         }
-        Debug.Log("El objetivo es " + objetivoMasCercano);
-
         if (objetivoMasCercano!= null)
         {
             Cazador.steering.Target = objetivoMasCercano;
+            Cazador.steering.seek = true;
+            Cazador.steering.seekWeight = 1f;
+            Target = objetivoMasCercano.gameObject;
             return true;
         }
         else
