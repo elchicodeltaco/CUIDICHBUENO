@@ -5,6 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BuscarPelCazCabras : GoapActionCabras
 {
+    private CazadorCabras Cazador;
 
     // Start is called before the first frame update
     public bool terminado = false;
@@ -15,17 +16,17 @@ public class BuscarPelCazCabras : GoapActionCabras
     public BuscarPelCazCabras()
     {
  
-
         //AgregamosPrecondiciones
         AddPrecondition("tienePelota", false);
 
         //agregamos efectos
         AddEffect("tienePelota", true);
-
+        AddEffect("AnotarUnGol", true);
 
     }
     public override bool checkPrecondition(GameObject obj)
     {
+        Cazador = GetComponent<CazadorCabras>();
 
         GameObject objetivo = GameObject.Find("Quaffle");
 
@@ -33,6 +34,7 @@ public class BuscarPelCazCabras : GoapActionCabras
         if (objetivo != null)
         {
             Target = objetivo;
+            Cazador.steering.Target = objetivo.transform;
             return true;
         }
         else
@@ -66,9 +68,11 @@ public class BuscarPelCazCabras : GoapActionCabras
         if (Time.timeSinceLevelLoad > tiempoInicio + duracionAccion)
         {
             Target.GetComponent<Quaffle>().Control(transform);
-            GetComponent<JugadorCabras>().tengoLaPelota = true;
+            GetComponent<LasBolas>().LaPelota = 1;
 
             terminado = true;
+            return true;
+
         }
         return true;
     }

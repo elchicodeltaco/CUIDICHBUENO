@@ -284,13 +284,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 131961968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 508491f9d5c3c8a46a138f7a97a1121f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ec513d9ec758ab43a0abacdcd8e3282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 0
+  Target: {fileID: 0}
   inRange: 0
   terminado: 0
   duracionAccion: 0
+--- !u!114 &131961972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131961968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04a400ad9910e54d8fe612961479548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LaPelota: 0
 --- !u!114 &131961973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +324,7 @@ MonoBehaviour:
   myNumberInTeam: 1
   myStartingPosition: {fileID: 0}
   playerPosition: 3
-  tengoLaPelota: 0
+  misBolas: {fileID: 0}
   distanceToShoot: 10
   ThrowStrenght: 15
 --- !u!114 &131961974
@@ -328,8 +342,8 @@ MonoBehaviour:
   maxSpeed: 59.31
   maxForce: 29.72
   Target: {fileID: 0}
-  seek: 0
-  seekWeight: 0
+  seek: 1
+  seekWeight: 2.64
   flee: 0
   fleeWeight: 0
   arrive: 0
@@ -369,22 +383,6 @@ MonoBehaviour:
   NearRivals: []
   nearPlayersSensorRadius: 0
   NearPlayersSensor: {fileID: 0}
---- !u!114 &131961975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131961968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ec513d9ec758ab43a0abacdcd8e3282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 0
-  inRange: 0
-  terminado: 0
-  duracionAccion: 0
 --- !u!1001 &167228368
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class JugadorCabras : Player, IGoapCabras
 {
     // Start is called before the first frame update
-    public bool tengoLaPelota = false;
+    //public bool tengoLaPelota = false;
+    public LasBolas misBolas;
 
     public abstract Dictionary<string, object> CreateGoalState();
 
@@ -14,7 +15,7 @@ public abstract class JugadorCabras : Player, IGoapCabras
 
         Dictionary<string, object> datos = new Dictionary<string, object>();
 
-        datos.Add("tienePelota", tengoLaPelota);
+        datos.Add("tienePelota", misBolas.LaPelota > 0);
 
 
         return datos;
@@ -49,7 +50,7 @@ public abstract class JugadorCabras : Player, IGoapCabras
 
     private void Start()
     {
-        tengoLaPelota = false;
+        misBolas = GetComponent<LasBolas>();
     }
     private void Update()
     {

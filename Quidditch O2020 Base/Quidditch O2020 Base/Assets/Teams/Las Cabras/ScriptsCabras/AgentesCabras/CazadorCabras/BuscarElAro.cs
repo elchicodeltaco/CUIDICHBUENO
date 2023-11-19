@@ -16,36 +16,59 @@ public class BuscarElAro : GoapActionCabras
     public BuscarElAro()
     {
         //AgregamosPrecondiciones
-        AddPrecondition("tienePelota", true);
+        AddPrecondition("tienePelota", false);
         //AddPrecondition("estaEnRango", false);
 
         //agregamos efectos
 
         //AddEffect("estaEnRango", true);
-        AddEffect("tienePelota", false);
-
-
-
+        AddEffect("AnotarUnGol", true);
+        AddEffect("tienePelota", true);
     }
 
     public override bool checkPrecondition(GameObject obj)
     {
 
-        /*if(Cazador.steering.Target!= null)
-        {
-            if (Cazador.tengoLaPelota == true && Vector3.Distance(Cazador.transform.position, Cazador.steering.Target.position) <
-            Cazador.distanceToShoot)
-            {
-                return true;
-            }
 
-            else
+
+        List<Transform> objetivos = GetComponentInParent<TeamCabras>().rivalGoals;
+        float distanciaMenor = 0f;
+
+        Transform objetivoMasCercano = null;
+
+
+        //Primer pase
+        if (objetivoMasCercano == null)
+        {
+            float distanciaMinima = float.MaxValue;
+            Debug.Log(objetivos.Count);
+
+            foreach (Transform t in objetivos)
             {
-                return false;
+
+
+                if (distanciaMinima < Vector3.Distance(t.transform.position, transform.position))
+                {
+                    distanciaMinima = Vector3.Distance(t.transform.position, transform.position);
+                    objetivoMasCercano = t;
+                }
             }
         }
-        return false;*/
-        return true;
+        Debug.Log("El objetivo es " + objetivoMasCercano);
+
+        if (objetivoMasCercano!= null)
+        {
+            Cazador.steering.Target = objetivoMasCercano;
+            return true;
+        }
+        else
+        {
+
+            return false;
+        }
+
+
+        //Asignamos lo que encontramos
 
     }
 
@@ -65,16 +88,15 @@ public class BuscarElAro : GoapActionCabras
 
     public override bool Perform(GameObject obj)
     {
-        /*GameManager.instancia.Quaffle.GetComponent<Quaffle>().Throw(
+        GameManager.instancia.Quaffle.GetComponent<Quaffle>().Throw(
         Cazador.steering.Target.position - Cazador.transform.position,
         Cazador.ThrowStrenght);
         GameManager.instancia.FreeQuaffle();
 
-        Cazador.tengoLaPelota = false;
-        Cazador.steering.seek = false;
-        Cazador.steering.seekWeight = 0f;
-        terminado = true;
-        return true;*/
+        GetComponent<LasBolas>().LaPelota = 0;
+        //Cazador.steering.seek = false;
+        //Cazador.steering.seekWeight = 0f;
+        Target = null;
         return true;
     }
 
