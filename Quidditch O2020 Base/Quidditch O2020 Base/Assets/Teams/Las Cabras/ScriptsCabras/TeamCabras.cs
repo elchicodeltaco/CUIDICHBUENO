@@ -91,7 +91,6 @@ public class TeamCabras : Team
 
         for (int j = 0; j < 6; j++)
         {
-            Debug.Log("Esto suwecedeeeeeeeee");
 
             LasCabras[j].GetComponent<Player>().myNumberInTeam = j;
             LasCabras[j].GetComponent<Player>().myStartingPosition = myStartingPositions[j];
