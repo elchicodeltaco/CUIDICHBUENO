@@ -31,9 +31,9 @@ public class EsperarCazCabras : GoapActionCabras
 
         if (Cazador.myStartingPosition != null)
         {
-            cazador.steering.Target = cazador.myStartingPosition;
-            cazador.steering.arrive = true;
-            cazador.steering.arriveWeight = 1f;
+            Cazador.steering.Target = Cazador.myStartingPosition;
+            Cazador.steering.arrive = true;
+            Cazador.steering.arriveWeight = 1f;
         }
 
         List<Transform> objetivos = GetComponentInParent<TeamCabras>().rivalGoals;
