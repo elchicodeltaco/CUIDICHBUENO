@@ -7,7 +7,7 @@ public abstract class JugadorCabras : Player, IGoapCabras
     // Start is called before the first frame update
     //public bool tengoLaPelota = false;
     public LasBolas misBolas;
-
+    
     public abstract Dictionary<string, object> CreateGoalState();
 
     public Dictionary<string, object> GetWorldState()
@@ -51,6 +51,7 @@ public abstract class JugadorCabras : Player, IGoapCabras
     private void Start()
     {
         misBolas = GetComponent<LasBolas>();
+
     }
     private void Update()
     {

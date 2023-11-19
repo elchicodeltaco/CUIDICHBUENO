@@ -29,10 +29,11 @@ public class PrepararCazCabras : GoapActionCabras
     public override bool checkPrecondition(GameObject obj)
     {
         Cazador = GetComponent<CazadorCabras>();
-        
+        Cazador.myStartingPosition = GameManager.instancia.Team1StartPositions[0];
+        Debug.Log("Valor starting position " + Cazador.myStartingPosition);
+
         if (Cazador.myStartingPosition != null)
         {
-            Debug.Log("Esta entrando aqui mero");
             Cazador.steering.Target = Cazador.myStartingPosition;
             Cazador.steering.arrive = true;
             Cazador.steering.arriveWeight = 1f;
@@ -60,8 +61,41 @@ public class PrepararCazCabras : GoapActionCabras
 
     public override bool Perform(GameObject obj)
     {
-        StartCoroutine(CorutinaEsperar());
-        return true;
+
+       // Si el juego no ha comenzado, esperar 5 segundos y volver a verificar
+       if (!GameManager.instancia.isGameStarted())
+       {
+            StartCoroutine(EsperarCincoSegundos());
+            return false;
+       }
+        else
+        {
+            StopAllCoroutines();
+            return true;
+        }
+ // El juego ha comenzado, la acción está completa
+    }
+
+    private IEnumerator EsperarCincoSegundos()
+    {
+        yield return new WaitForSeconds(2);
+        RevisarInicioJuego();
+    }
+
+    private void RevisarInicioJuego()
+    {
+        // Esperar un breve momento antes de volver a verificar
+
+        if (!GameManager.instancia.isGameStarted())
+        {
+            // Si el juego aún no ha comenzado, esperar nuevamente
+            StartCoroutine(EsperarCincoSegundos());
+        }
+        else
+        {
+            // El juego ha comenzado, la acción está completa
+            terminado = true;
+        }
     }
 
     public override bool isDone()
@@ -71,12 +105,5 @@ public class PrepararCazCabras : GoapActionCabras
 
         return terminado;
     }
-    private IEnumerator CorutinaEsperar()
-    {
-        yield return new WaitForSeconds(5f);
-        if (!GameManager.instancia.isGameStarted())
-        {
-            StartCoroutine(CorutinaEsperar());
-        }
-    }
+
 }
